@@ -33,6 +33,12 @@ pipeline {
             }
         }
     }
-
+    stage('k8s deploy') {
+	    kubernetesDeploy(	
+	      config: 'app/deployment.yaml',
+	      kubeconfigid: 'k8s',
+	      enableConfigSubstitution: true
+		)
+	}
   }
 }
