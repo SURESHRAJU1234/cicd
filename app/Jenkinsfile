@@ -35,11 +35,9 @@ pipeline {
     }
     stage('k8s deploy') {
     	steps {
-	    kubernetesDeploy(	
-	      configs: 'kubernetes/deployment.yaml',
-	      kubeconfigId: 'k8s',
-	      enableConfigSubstitution: true
-	    )
+	   withKubeConfig([credentialsId: 'k8stoken', serverUrl: 'https://EB7ACAD5EF478F9332417D4A12201AF2.gr7.us-west-2.eks.amazonaws.com']) {
+             sh 'kubectl apply -f kubernetes/deployment.yaml'
+            }
 	}
     }
   }
