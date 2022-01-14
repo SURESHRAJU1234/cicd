@@ -18,8 +18,8 @@ pipeline {
           //dockerImage = docker.build registry + ":$BUILD_NUMBER"
           sh '''
             cd app
-            docker build -t helloworld-python:${BUILD_NUMBER} .
-            docker tag helloworld-python:${BUILD_NUMBER} sureshraju1234/helloworld-python:latest 
+            docker build -t helloworld-python:${GIT_BRANCH}-${BUILD_NUMBER} .
+            docker tag helloworld-python:${GIT_BRANCH}-${BUILD_NUMBER} sureshraju1234/helloworld-python:${GIT_BRANCH}-${BUILD_NUMBER}
             docker images
           '''
         }
