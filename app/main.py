@@ -1,4 +1,4 @@
-from platform import platform
+import platform
 from datetime import datetime
 from flask import Flask
 app = Flask(__name__)
