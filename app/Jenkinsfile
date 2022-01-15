@@ -38,7 +38,11 @@ pipeline {
 	   withKubeConfig([credentialsId: 'k8stoken', serverUrl: 'https://EB7ACAD5EF478F9332417D4A12201AF2.gr7.us-west-2.eks.amazonaws.com']) {
              sh '''
                 echo ${GIT_BRANCH}
-                cat kubernetes/deployment.yaml | sed "s/{{DOCKER_TAG}}/${GIT_BRANCH}-${BUILD_NUMBER}/g" | kubectl apply -f -
+		if [ "$GIT_BRANCH" = "main" ]; then
+    			echo "main branch. Deploying to K8S cluster"
+			cat kubernetes/deployment.yaml | sed "s/{{DOCKER_TAG}}/${GIT_BRANCH}-${BUILD_NUMBER}/g" | kubectl apply -f -
+		else
+			echo "Not a main branch, skipping kubernetes deployment"                
               ''' 
             }
 	}
