@@ -28,10 +28,7 @@ pipeline {
     stage('Push Image') {
         steps {
             withDockerRegistry([ credentialsId: "dockerhubdockerhub", url: "" ]) {
-                sh  '''
-			echo ${GIT_BRANCH}
-			docker push sureshraju1234/helloworld-python:${GIT_BRANCH}-${BUILD_NUMBER}'
-                 '''
+                sh  'docker push sureshraju1234/helloworld-python:${GIT_BRANCH}-${BUILD_NUMBER}'
               
             }
         }
@@ -39,7 +36,10 @@ pipeline {
     stage('k8s deploy') {
     	steps {
 	   withKubeConfig([credentialsId: 'k8stoken', serverUrl: 'https://EB7ACAD5EF478F9332417D4A12201AF2.gr7.us-west-2.eks.amazonaws.com']) {
-             sh 'cat kubernetes/deployment.yaml | sed "s/{{DOCKER_TAG}}/${GIT_BRANCH}-${BUILD_NUMBER}/g" | kubectl apply -f -'
+             sh '''
+                echo ${GIT_BRANCH}
+                cat kubernetes/deployment.yaml | sed "s/{{DOCKER_TAG}}/${GIT_BRANCH}-${BUILD_NUMBER}/g" | kubectl apply -f -'
+              ''' 
             }
 	}
     }
