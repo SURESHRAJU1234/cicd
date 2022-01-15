@@ -42,7 +42,8 @@ pipeline {
     			echo "main branch. Deploying to K8S cluster"
 			cat kubernetes/deployment.yaml | sed "s/{{DOCKER_TAG}}/${GIT_BRANCH}-${BUILD_NUMBER}/g" | kubectl apply -f -
 		else
-			echo "Not a main branch, skipping kubernetes deployment"                
+			echo "Not a main branch, skipping kubernetes deployment"
+		fi
               ''' 
             }
 	}
