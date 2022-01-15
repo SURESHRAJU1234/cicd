@@ -28,7 +28,10 @@ pipeline {
     stage('Push Image') {
         steps {
             withDockerRegistry([ credentialsId: "dockerhubdockerhub", url: "" ]) {
-                sh  'docker push sureshraju1234/helloworld-python:${GIT_BRANCH}-${BUILD_NUMBER}'
+                sh  '''
+			echo ${GIT_BRANCH}
+			docker push sureshraju1234/helloworld-python:${GIT_BRANCH}-${BUILD_NUMBER}'
+                 '''
               
             }
         }
