@@ -7,7 +7,7 @@ app = Flask(__name__)
 def hello():
     now = datetime.now() # current date and time
     date_time = now.strftime("%m/%d/%Y, %H:%M:%S")
-    message = "You did it. Welcome to Hello world of "+platform.node() + ". Current time is " +date_time
+    message = "You did it. Welcome to Hello world of K8S "+platform.node() + ". Current time is " +date_time
     return message
 
 if __name__ == "__main__":
