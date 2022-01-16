@@ -8,7 +8,7 @@ pipeline {
   stages {
     stage('Cloning Git') {
       steps {
-        git 'https://github.com/SURESHRAJU1234/cicd.git'
+        checkout scm
        
       }
     }
